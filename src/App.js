@@ -15,12 +15,16 @@ import ForgotPassword from './components/ForgotPassword';
 import Preference from './components/Preference';
 import Home from './components/Home';
 import Search from './components/Recherche'
+import Header from './components/headers/Header'
+import Product from './components/ProductDetails'
+import Map from './components/Map'
+import Notifications from './components/popups/Notifications'
 
 const Drawer = createDrawerNavigator()
 function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="SignIn" screenOptions={{ gestureEnabled: false }}>
+      <Drawer.Navigator initialRouteName="Home" screenOptions={{ gestureEnabled: false }}>
         <Drawer.Screen name="SignIn" component={SignIn} />
         <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name="Search" component={Search} />
@@ -33,6 +37,10 @@ function App() {
         <Drawer.Screen name="DetailsAssociation" component={DetailsAssociation} />
         <Drawer.Screen name="Parameter" component={Parameter} />
         <Drawer.Screen name="History" component={Hisotry} />
+        <Drawer.Screen name="Header" component={Header} />
+        <Drawer.Screen name="Notifications" component={Notifications} />
+        <Drawer.Screen name="ProductDetails" component={Product} />
+        <Drawer.Screen name="Map" component={Map} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
