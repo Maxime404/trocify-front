@@ -20,7 +20,7 @@ export default class MessageList extends Component {
         this.state = {
             token:'',
             user:null,
-            type:null,
+            type:undefined,
             messages:null
         }
     }
@@ -36,7 +36,7 @@ export default class MessageList extends Component {
             data = JSON.parse(data)
             this.setState({token:data.meta.token})
             if (data.customer){
-                this.setState({user:data.customer,type:'customer'})
+                this.setState({user:data.customer,type:'classic'})
             }
             else{
                 this.setState({user:data.association,type:'association'})
@@ -166,7 +166,7 @@ export default class MessageList extends Component {
           
             {this.getRenderContent(messages)}
                 {/* Footer  */}
-                <MyFooter type='classic' navigation={navigation}/>
+                <MyFooter type={this.state.type || 'classic'} navigation={navigation}/>
 
             </SafeAreaView>
         )

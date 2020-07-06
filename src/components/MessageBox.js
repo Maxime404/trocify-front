@@ -4,16 +4,18 @@ import {
     View,
     TouchableOpacity,
     SafeAreaView,
+    ScrollView,
     Image,
     FlatList,
     TextInput,
-    AsyncStorage
+    AsyncStorage,
+    YellowBox
 } from 'react-native'
 import { Icon } from 'react-native-elements'
 import styles from '../../assets/styles/messages'
 import MyHeader from './headers/Header'
 import MyFooter from './footers/Footer'
-
+YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
 
 
 export default class MessageBox extends Component {
@@ -22,7 +24,7 @@ export default class MessageBox extends Component {
         this.state = {
             token: '',
             user: null,
-            type: null,
+            type: undefined,
             messages: null,
             content: ''
         }
@@ -49,7 +51,7 @@ export default class MessageBox extends Component {
             data = JSON.parse(data)
             this.setState({ token: data.meta.token })
             if (data.customer) {
-                this.setState({ user: data.customer, type: 'customer' })
+                this.setState({ user: data.customer, type: 'classic' })
             }
             else {
                 this.setState({ user: data.association, type: 'association' })
@@ -173,7 +175,8 @@ export default class MessageBox extends Component {
                 <MyHeader type='classic' navigation={navigation} />
 
                 {messages != null &&
-                    <SafeAreaView style={styles.contentContainer}>
+                    <ScrollView style={styles.contentContainer}>
+                        
                         <FlatList
                             data={messages}
                             renderItem={({ item }) =>
@@ -182,10 +185,10 @@ export default class MessageBox extends Component {
                             }
                             keyExtractor={item => String(item.id)}
                         />
-                    </SafeAreaView>
+                    </ScrollView>
                 }
 
-                <View style={{ position: 'relative', bottom: 4, height: 40, flexDirection: 'row',alignItems: 'center'  }}>
+                <View style={{ position: 'relative', bottom: 4, height: 40, flexDirection: 'row',alignItems: 'center',overflow:'visible'  }}>
                     <View style={{ width: '85%', height: 40 }} >
                         <TextInput
                             style={{ height: '100%', borderColor: 'gray', borderWidth: 1 }}
@@ -205,7 +208,7 @@ export default class MessageBox extends Component {
                     </TouchableOpacity>
                 </View>
                 {/* Footer  */}
-                <MyFooter type='classic' navigation={navigation} />
+                <MyFooter type={this.state.type || 'classic' } navigation={navigation} />
 
             </SafeAreaView>
         )

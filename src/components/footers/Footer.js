@@ -98,7 +98,7 @@ export default class MyFooter extends React.Component {
 
 
     render() {
-        const type = this.props.type
+        const type = this.props.type 
         let FooterComponent
         if(type === 'association'){
             FooterComponent =  this.organizationFooter()
